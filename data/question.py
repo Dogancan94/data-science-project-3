@@ -1,7 +1,7 @@
 import psycopg2
 
 ## Bu değeri localinde çalışırken kendi passwordün yap. Ama kodu pushlarken 'postgres' olarak bırak.
-password = 'hello'
+password = 'postgres'
 
 def connect_db(schema="ds_project"):
     conn = psycopg2.connect(
@@ -11,8 +11,8 @@ def connect_db(schema="ds_project"):
     user="postgres",
     password=password)
 
-    with conn.cursor() as cur:
-        cur.execute(f"SET search_path TO {schema}")
+    # with conn.cursor() as cur:
+    #     cur.execute(f"SET search_path TO {schema}")
     
     return conn
 
