@@ -1,15 +1,19 @@
 import psycopg2
 
 ## Bu değeri localinde çalışırken kendi passwordün yap. Ama kodu pushlarken 'postgres' olarak bırak.
-password = 'postgres'
+password = 'hello'
 
-def connect_db():
+def connect_db(schema="ds_project"):
     conn = psycopg2.connect(
     host="localhost",
     port=5432,
     database="postgres",
     user="postgres",
     password=password)
+
+    with conn.cursor() as cur:
+        cur.execute(f"SET search_path TO {schema}")
+    
     return conn
 
 # DATE_TRUNC ile ay bazlı kayıt sayılarını listele
@@ -27,7 +31,7 @@ def question_1_query():
 def question_2_query():
     connection = connect_db()
     cursor = connection.cursor()
-    cursor.execute('')
+    cursor.execute('''SELECT DATE_PART('year', enrollment_date) FROM enrollments;''')
     data = cursor.fetchall()
     cursor.close()
     connection.close()
@@ -104,7 +108,7 @@ def question_8_query():
 def question_9_query():
     connection = connect_db()
     cursor = connection.cursor()
-    cursor.execute("""""")
+    cursor.execute("")
     data = cursor.fetchall()
     cursor.close()
     connection.close()
@@ -115,7 +119,7 @@ def question_9_query():
 def question_10_query():
     connection = connect_db()
     cursor = connection.cursor()
-    cursor.execute("""""")
+    cursor.execute("")
     data = cursor.fetchall()
     cursor.close()
     connection.close()
